@@ -1,6 +1,7 @@
-all: utilityTests commonTypesSerializersTests
+all: utilityTests commonTypesSerializersTests fixHeaderTests
 	./utilityTests
 	./commonTypesSerializersTests
+	./fixHeaderTests
 
 utilityTests : utilityTests.cpp
 	g++ utilityTests.cpp -o utilityTests -L.. -lFixSerializers
@@ -8,5 +9,8 @@ utilityTests : utilityTests.cpp
 commonTypesSerializersTests : commonTypesSerializersTests.cpp
 	g++ commonTypesSerializersTests.cpp -o commonTypesSerializersTests -L.. -lFixSerializers
 
+fixHeaderTests : fixHeaderTests.cpp
+	g++ fixHeaderTests.cpp -o fixHeaderTests -L.. -lFixSerializers
+
 clean:
-	rm utilityTests commonTypesSerializersTests
+	rm utilityTests commonTypesSerializersTests fixHeaderTests

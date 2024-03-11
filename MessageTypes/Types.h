@@ -13,10 +13,16 @@ typedef struct _OptionalString
     char value[50];
 } OptionalString;
 
+typedef struct _Data
+{
+    int lenght;
+    unsigned char* value;
+} Data;
+
 typedef struct _OptionalData
 {
     int isSet;
-    unsigned char* value;
+    Data value;
 } OptionalData;
 
 typedef struct _FixBoolean

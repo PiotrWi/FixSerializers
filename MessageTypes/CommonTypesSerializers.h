@@ -1,7 +1,7 @@
 #ifndef FIXSERIALIZERS_COMMONTYPESSERIALIZERS_H_
 #define FIXSERIALIZERS_COMMONTYPESSERIALIZERS_H_
 
-#include "Types.hpp"
+#include "Types.h"
 
 /**
  * \brief Serializes tag number plus '=' to message buffer.
@@ -70,5 +70,90 @@ int serializeInt(int input,
                  int fixTag,
                  char* messageBufferCurrentPosition,
                  const char* messageBufferEnd);
+
+/**
+ * \brief Serializes optional Int field to message buffer.
+ *
+ * If field is not set, skip processing and 0 is returned
+ */
+int serializeOptionalInt(OptionalInt input,
+                 int fixTag,
+                 char* messageBufferCurrentPosition,
+                 const char* messageBufferEnd);
+
+/**
+ * \brief Serializes DATA field to message buffer.
+ *
+ * Message string after procedure will be SOH terminated. Null terminated character after SOH is not guaranteed.
+ *
+ * @param input Data to be serialized
+ * @param fixTag fix tag to compose message.
+ * @param messageBufferCurrentPosition position on message string where to append tag and value string.
+ * @param messageBufferEnd pointer to position where message buffer ends. In case if message buffer is to little,
+ *                          an error will occur.
+ * \return number of characters written to buffer including SOH (null terminated won't be counted).
+ */
+int serializeData(Data input,
+                 int fixTag,
+                 char* messageBufferCurrentPosition,
+                 const char* messageBufferEnd);
+
+/**
+ * \brief Serializes optional Data field to message buffer.
+ *
+ * If field is not set, skip processing and 0 is returned
+ */
+int serializeOptionalData(OptionalData input,
+                         int fixTag,
+                         char* messageBufferCurrentPosition,
+                         const char* messageBufferEnd);
+
+/**
+ * \brief Serializes booleam field to message buffer.
+ *
+ * 0(FALSE) value is serialized as T,
+ * 1(TRUE) value is serialized as Y,
+ *
+ * Message string after procedure will be SOH terminated. Null terminated character after SOH is not guaranteed.
+ *
+ * @param input Data to be serialized
+ * @param fixTag fix tag to compose message.
+ * @param messageBufferCurrentPosition position on message string where to append tag and value string.
+ * @param messageBufferEnd pointer to position where message buffer ends. In case if message buffer is to little,
+ *                          an error will occur.
+ * \return number of characters written to buffer including SOH (null terminated won't be counted).
+ */
+int serializeFixBoolean(FixBoolean input,
+                  int fixTag,
+                  char* messageBufferCurrentPosition,
+                  const char* messageBufferEnd);
+
+/**
+ * \brief Serializes optional Data field to message buffer.
+ *
+ * If field is not set, skip processing and 0 is returned
+ */
+int serializeOptionalFixBoolean(OptionalFixBoolean input,
+                          int fixTag,
+                          char* messageBufferCurrentPosition,
+                          const char* messageBufferEnd);
+
+int serializeUtcDate(UtcDate input,
+                     char* messageBufferCurrentPosition,
+                     const char* messageBufferEnd);
+
+int serializeUTCTimeOnly(UTCTimeOnly input,
+                     char* messageBufferCurrentPosition,
+                     const char* messageBufferEnd);
+
+int serializeUtcTimeStamp(UtcTimeStamp input,
+                          int fixTag,
+                          char* messageBufferCurrentPosition,
+                          const char* messageBufferEnd);
+
+int serializeOptionalUtcTimeStamp(OptionalUtcTimeStamp input,
+                          int fixTag,
+                          char* messageBufferCurrentPosition,
+                          const char* messageBufferEnd);
 
 #endif //FIXSERIALIZERS_COMMONTYPESSERIALIZERS_H

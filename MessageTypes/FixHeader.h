@@ -1,26 +1,28 @@
 #ifndef FIXSERIALIZERS_HEADER_H
 #define FIXSERIALIZERS_HEADER_H
 
-struct FixHeader
+#include "Types.h"
+
+typedef struct _FixHeader
 {
     char beginString[50];
     int bodyLength;
     char msgType[3];
-    char tenderCompID[50];
+    char senderCompID[50];
     char targetCompID[50];
     OptionalString onBehalfOfCompID;
     OptionalString deliverToCompID;
     OptionalInt secureDataLen;
     OptionalData secureData;
     int msgSeqNum;
-    OptionalString_50 senderSubID;
-    OptionalString_50 senderLocationID;
-    OptionalString_50 targetSubID;
-    OptionalString_50 targetLocationID;
-    OptionalString_50 onBehalfOfSubID;
-    OptionalString_50 onBehalfOfLocationID;
-    OptionalString_50 deliverToSubID;
-    OptionalString_50 deliverToLocationID;
+    OptionalString senderSubID;
+    OptionalString senderLocationID;
+    OptionalString targetSubID;
+    OptionalString targetLocationID;
+    OptionalString onBehalfOfSubID;
+    OptionalString onBehalfOfLocationID;
+    OptionalString deliverToSubID;
+    OptionalString deliverToLocationID;
     OptionalFixBoolean possDupFlag;
     OptionalFixBoolean possResend;
     UtcTimeStamp sendingTime;
@@ -29,10 +31,13 @@ struct FixHeader
     OptionalData xmlData;
     OptionalString messageEncoding;
     OptionalInt	lastMsgSeqNumProcessed;
-    OptionalUtc timeStampOnBehalfOfSendingTime;
-    OptionalString_50 applVerIDTag;
-    OptionalString_50 cstmApplVerIDTag;
-};
+    OptionalUtcTimeStamp timeStampOnBehalfOfSendingTime;
+    OptionalString applVerID;
+    OptionalString cstmApplVerID;
+} FixHeader;
+
+void fixs_fixHeader_init(FixHeader* header);
+
 /**
  * \brief Serializes FixHeader
  *
